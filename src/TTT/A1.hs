@@ -1,51 +1,84 @@
-module TTT.A1 where
+module A1 where
 
 import Data.Char (toUpper)
 
--- Q#01
+-- *** Assignment 1-1 *** --
 
-_SIZE_ = undefined
+-- Q#01
+_SIZE_ :: Int
+_SIZE_ = 3
 
 -- Q#02
-
-_DISPLAY_LOGO_ = undefined
+_DISPLAY_LOGO_ :: Bool 
+_DISPLAY_LOGO_ = True
 
 -- Q#03
-
-convertRowIndex = undefined
+convertRowIndex :: Char -> Int
+convertRowIndex rowChar = fromEnum (toUpper rowChar)- 65
 
 -- Q#04
-
-_INVALID_MOVE_ = undefined
+_INVALID_MOVE_ :: (Int, Int)
+_INVALID_MOVE_ = (-1,-1)
 
 -- Q#05
+_SEP_ :: String
+_SEP_ = "_|_"
 
-_SEP_ = undefined
+-- *** Assignment 1-2 *** --
 
 -- Q#06
+data Square = X | O | E
+  deriving (Show, Eq)
 
-data Square
 
 -- Q#07
-
-data GameState
+data GameState = XWon | OWon | Tie | InProgress
+  deriving (Show, Eq)
 
 -- Q#08
+type Player = Square
+type Row = [Square]
+type Line = [Square]
+type Board = [Row]
+type Move = (Int, Int)
+
+
+
+
 
 -- Q#09
 
-getFirstPlayer = undefined
+getFirstPlayer :: Bool -> Player
+getFirstPlayer isTrue =
+  if isTrue
+    then X
+    else O
 
-getFirstPlayer_ = undefined
+getFirstPlayer_ :: Bool -> Player
+getFirstPlayer_ isTrue
+  | isTrue    = X
+  | otherwise = O
 
 -- Q#10
 
-showGameState = undefined
+showGameState :: GameState -> String
+showGameState gameState = case gameState of
+  XWon        -> "Player X has won the game."
+  OWon        -> "Player O has won the game."
+  Tie         -> "The game is a tie."
+  InProgress  -> "The game is in progress."
 
 -- Q#11
 
-switchPlayer = undefined
+switchPlayer :: Player -> Player
+switchPlayer X = O
+switchPlayer O = X
+switchPlayer E = E
+
 
 -- Q#12
 
-showSquare = undefined
+showSquare :: Square -> String
+showSquare X = "X"
+showSquare O = "O"
+showSquare E = "_"
