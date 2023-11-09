@@ -80,8 +80,13 @@ play board player = do
       putStrLn (showGameState newGameState)
 
 -- Q#06
+playWithEmptyBoard :: Player -> IO ()
+playWithEmptyBoard = play _EMPTY_BOARD_
+
 runTTT :: IO ()
-runTTT = putStrLn "Not implemented... yet!"
+runTTT = do
+    startPlayer <- firstPlayer
+    playWithEmptyBoard startPlayer
 
 
 
