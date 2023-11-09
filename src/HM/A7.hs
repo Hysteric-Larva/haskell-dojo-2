@@ -2,7 +2,7 @@
 {-# HLINT ignore "Use newtype instead of data" #-}
 module HM.A7 where
 
-import Data.Char (isAlpha, toLower, toUpper)
+import Data.Char (isAlpha, toLower, toUpper, isLetter)
 import HM.A6
 import HM.Provided
 import System.Directory (doesFileExist)
@@ -88,22 +88,52 @@ toMaybe True value = Just value
 
 -- Q#08
 
-validateSecret = undefined
+validateSecret :: (Secret -> Bool) -> GameException -> Secret -> Either GameException Secret
+validateSecret predicate exception secret
+    | predicate secret = Right secret -- The secret passes the predicate
+    | otherwise = Left exception       -- The secret does not pass the predicate
+
+
 
 -- Q#09
 
-hasValidChars = undefined
+hasValidChars :: GameException -> Secret -> Either GameException Secret
+hasValidChars = validateSecret (all isLetter)
 
-isValidLength = undefined
+isValidLength :: GameException -> Secret -> Either GameException Secret
+isValidLength = validateSecret (\secret -> length secret >= fst _LENGTH_ && length secret <= snd _LENGTH_)
 
-isInDict = undefined
+isInDict :: Dictionary -> GameException -> Secret -> Either GameException Secret
+isInDict dict = validateSecret (\secret -> toLowerSecret secret `elem` dict)
+  where
+    toLowerSecret = map toLower
 
 -- Q#10
 
-validateNoDict = undefined
+validateNoDict :: Secret -> Either GameException Secret
+validateNoDict secret = case hasValidChars InvalidChars secret of
+    Left e -> Left e
+    Right s -> case isValidLength InvalidLength s of
+        Left e -> Left e
+        Right s -> Right s
 
-validateWithDict = undefined
+validateWithDict :: Dictionary -> Secret -> Either GameException Secret
+validateWithDict dict secret = case validateNoDict secret of
+    Left e -> Left e
+    Right s -> case isInDict dict NotInDict s of
+        Left e -> Left e
+        Right s -> Right s
+
+
+
 
 -- Q#11
 
-processTurn = undefined
+processTurn :: Move -> Game -> Either GameException Game
+processTurn move game
+    | not (isAlpha move) = Left InvalidMove
+    | repeatedMove move game = Left RepeatMove
+    | chancesRemaining newGame <= 0 = Left GameOver
+    | otherwise = Right newGame
+  where
+    newGame = updateGame move game
