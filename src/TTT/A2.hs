@@ -1,8 +1,8 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
-module A2 where
+module TTT.A2 where
 
-import A1
+import TTT.A1
 import Data.List (intercalate)
 import Data.Char (chr, ord)
 -- *** Assignment 2-1 *** --

@@ -1,10 +1,8 @@
-module A5 where
-
-import A1
-import A2
-import A3
-import A4
-
+module TTT.A5 where
+import TTT.A1
+import TTT.A2
+import TTT.A3
+import TTT.A4
 import System.Random.Stateful (globalStdGen, uniformM)
 import Control.Monad (when)
 import System.IO
@@ -18,7 +16,8 @@ printBoard board = putStrLn (formatBoard board)
 
 -- Q#02
 _LOGO_PATH_ :: FilePath
-_LOGO_PATH_ = "./assets/logo.txt"
+_LOGO_PATH_ = "./assets/ttt-logo.txt"
+
 
 printLogo :: IO ()
 printLogo = do
@@ -81,7 +80,8 @@ play board player = do
       putStrLn (showGameState newGameState)
 
 -- Q#06
-
+runTTT :: IO ()
+runTTT = putStrLn "Not implemented... yet!"
 
 
 

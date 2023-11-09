@@ -1,8 +1,7 @@
-module A3 where
+module TTT.A3 where
 
-import A1
-import A2
-
+import TTT.A1
+import TTT.A2
 import Data.List (transpose)
 
 -- *** Assignment 3-1 ***

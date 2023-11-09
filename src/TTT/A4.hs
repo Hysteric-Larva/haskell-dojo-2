@@ -1,8 +1,8 @@
-module A4 where
+module TTT.A4 where
 
-import A1
-import A2
-import A3 hiding (
+import TTT.A1
+import TTT.A2
+import TTT.A3 hiding (
   _HEADER_,
   showSquares,
   dropFirstCol,

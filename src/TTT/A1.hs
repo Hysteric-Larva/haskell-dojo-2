@@ -1,4 +1,4 @@
-module A1 where
+module TTT.A1 where
 
 import Data.Char (toUpper)
 
